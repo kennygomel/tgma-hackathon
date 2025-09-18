@@ -7,10 +7,11 @@ services:
     build:
       context: ./ui
       dockerfile: docker/Dockerfile
-      target: build
-    command: yarn dev
+#      target: build
+#    command: yarn dev
     ports:
       - 5173:5173
+      - 8080:80
     restart: always
     volumes:
       - ./ui:/app
