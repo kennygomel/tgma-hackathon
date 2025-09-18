@@ -5,14 +5,10 @@
   "repository": "https://github.com/kennygomel/tgma-hackathon.git",
   "license": "MIT",
   "scripts": {
-    "start:dev": "docker compose up -f docker-compose-core.yml -f docker-compose-dev.yml -d",
-    "start:prod": "docker compose up -f docker-compose-core.yml -f docker-compose-prod.yml -d",
-    "stop:dev": "docker compose down -f docker-compose-core.yml -f docker-compose-dev.yml -d",
-    "stop:prod": "docker compose down -f docker-compose-core.yml -f docker-compose-prod.yml -d",
-    "rebuild:api:dev": "docker volume rm tgma-hackathon_api-node-modules-data -f && docker compose build --no-cache -f docker-compose-core.yml -f docker-compose-dev.yml -d api",
-    "rebuild:api:prod": "docker volume rm tgma-hackathon_api-node-modules-data -f && docker compose build --no-cache -f docker-compose-core.yml -f docker-compose-prod.yml api",
-    "rebuild:ui:dev": "docker volume rm tgma-hackathon_ui-node-modules-data -f && docker compose build --no-cache -f docker-compose-core.yml -f docker-compose-dev.yml -d ui",
-    "rebuild:ui:prod": "docker volume rm tgma-hackathon_ui-node-modules-data -f && docker compose build --no-cache -f docker-compose-core.yml -f docker-compose-prod.yml ui"
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "rebuild:api": "docker volume rm tgma-hackathon_api-node-modules-data -f && docker compose build --no-cache api",
+    "rebuild:ui": "docker volume rm tgma-hackathon_ui-node-modules-data -f && docker compose build --no-cache ui"
   },
   "dependencies": {
     "api": "file:api",
