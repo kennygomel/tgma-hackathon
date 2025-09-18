@@ -4,6 +4,12 @@
   "main": "index.js",
   "repository": "https://github.com/kennygomel/tgma-hackathon.git",
   "license": "MIT",
+  "scripts": {
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "rebuild:api": "docker volume rm tgma-hackathon_api-node-modules-data -f && docker compose build --no-cache api",
+    "rebuild:ui": "docker volume rm tgma-hackathon_ui-node-modules-data -f && docker compose build --no-cache ui"
+  },
   "dependencies": {
     "api": "file:api",
     "ui": "file:ui"

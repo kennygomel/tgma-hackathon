@@ -31,15 +31,26 @@ services:
       - ./api:/app
       - api-node-modules-data:/app/node_modules
 
-#  postgres:
-#    container_name: tgma-hackathon-postgres
-#    env_file: .env.postgres
-#    image: postgres:17-alpine
-#    ports:
-#      - 5432:5432
-#    restart: always
-#    volumes:
-#      - postgres-data:/var/lib/postgresql/data
+  postgres:
+    container_name: tgma-hackathon-postgres
+    env_file: .env.postgres
+    image: postgres:17-alpine
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    container_name: tgma-hackathon-redis
+    image: redis:8-alpine
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    restart: always
+    volumes:
+      - redis-data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
 
 #  bot:
 #    container_name: evland-bot
@@ -96,17 +107,6 @@ services:
 #      - prometheus-data:/prometheus
 #      - ./prometheus/prometheus.yml:/prometheus/prometheus.yml
 #
-#  redis:
-#    container_name: evland-redis
-#    image: redis:8-alpine
-#    command: redis-server /usr/local/etc/redis/redis.conf
-#    ports:
-#      - 6379:6379
-#    restart: always
-#    volumes:
-#      - redis-data:/data
-#      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
-#
 #  redis-insight:
 #    container_name: evland-redis-insight
 #    env_file: .env.redisinsight
@@ -125,6 +125,6 @@ volumes:
 #  nginx-cache-data:
   postgres-data:
 #  prometheus-data:
-#  redis-data:
+  redis-data:
 #  redis-insight-data:
   ui-node-modules-data:
