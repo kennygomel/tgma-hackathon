@@ -31,6 +31,16 @@ services:
       - ./api:/app
       - api-node-modules-data:/app/node_modules
 
+#  postgres:
+#    container_name: tgma-hackathon-postgres
+#    env_file: .env.postgres
+#    image: postgres:17-alpine
+#    ports:
+#      - 5432:5432
+#    restart: always
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
+
 #  bot:
 #    container_name: evland-bot
 #    depends_on:
@@ -70,16 +80,6 @@ services:
 #    restart: always
 #    volumes:
 #      - minio-data:/data
-#
-#  postgres:
-#    container_name: evland-postgres
-#    env_file: .env.postgres
-#    image: postgres:17-alpine
-#    ports:
-#      - 5432:5432
-#    restart: always
-#    volumes:
-#      - postgres-data:/var/lib/postgresql/data
 #
 #  prometheus:
 #    container_name: evland-prometheus
@@ -123,7 +123,7 @@ volumes:
   api-node-modules-data:
 #  minio-data:
 #  nginx-cache-data:
-#  postgres-data:
+  postgres-data:
 #  prometheus-data:
 #  redis-data:
 #  redis-insight-data:
