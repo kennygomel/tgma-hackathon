@@ -14,7 +14,7 @@ services:
       - 8080:80
     restart: always
     volumes:
-      - ./ui:/app
+#      - ./ui:/app
       - ui-node-modules-data:/app/node_modules
 
   api:
@@ -23,13 +23,13 @@ services:
     build:
       context: ./api
       dockerfile: docker/Dockerfile
-      target: build
-    command: yarn start:dev
+#      target: build
+#    command: yarn start:dev
     ports:
       - 3000:3000
     restart: always
     volumes:
-      - ./api:/app
+#      - ./api:/app
       - api-node-modules-data:/app/node_modules
 
   postgres:
