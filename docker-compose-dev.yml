@@ -1,0 +1,36 @@
+name: tgma-hackathon
+services:
+  ui:
+    container_name: tgma-hackathon-ui
+    depends_on:
+      - api
+    build:
+      context: ./ui
+      dockerfile: docker/Dockerfile
+      target: build
+    command: yarn dev
+    ports:
+      - 5173:5173
+    restart: always
+    volumes:
+      - ./ui:/app
+      - ui-node-modules-data:/app/node_modules
+
+  api:
+    container_name: tgma-hackathon-api
+    env_file: .env.api
+    build:
+      context: ./api
+      dockerfile: docker/Dockerfile
+      target: build
+    command: yarn start:dev
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./api:/app
+      - api-node-modules-data:/app/node_modules
+
+volumes:
+  api-node-modules-data:
+  ui-node-modules-data:
