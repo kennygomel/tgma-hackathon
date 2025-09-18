@@ -1,0 +1,11 @@
+{
+  "name": "tgma-hackathon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kennygomel/tgma-hackathon.git",
+  "license": "MIT",
+  "dependencies": {
+    "api": "file:api",
+    "ui": "file:ui"
+  }
+}

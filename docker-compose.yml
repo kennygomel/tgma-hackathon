@@ -1,0 +1,130 @@
+name: tgma-hackathon
+services:
+  ui:
+    container_name: tgma-hackathon-ui
+    depends_on:
+      - api
+    build:
+      context: ./ui
+      dockerfile: docker/Dockerfile
+      target: build
+    command: yarn dev
+    ports:
+      - 5173:5173
+    restart: always
+    volumes:
+      - ./ui:/app
+      - ui-node-modules-data:/app/node_modules
+
+  api:
+    container_name: tgma-hackathon-api
+    env_file: .env.api
+    build:
+      context: ./api
+      dockerfile: docker/Dockerfile
+      target: build
+    command: yarn start:dev
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./api:/app
+      - api-node-modules-data:/app/node_modules
+
+#  bot:
+#    container_name: evland-bot
+#    depends_on:
+#      - api
+#      - postgres
+#      - redis
+#    env_file: .env.bot
+#    image: evland-bot:latest
+#    restart: always
+#
+#  nginx:
+#    container_name: evland-nginx
+#    depends_on:
+#      - api
+#      - ui
+#      - minio
+#    #    image: nginx:1.29.0-alpine
+#    image: fholzer/nginx-brotli
+#    ports:
+#      - 8080:80
+#    restart: always
+#    volumes:
+#      - ./nginx/conf.d:/etc/nginx/conf.d
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - nginx-cache-data:/data/nginx/cache
+#
+#  minio:
+#    container_name: evland-minio
+#    command: server /data --console-address ":9001"
+#    depends_on:
+#      - prometheus
+#    env_file: .env.minio
+#    image: minio/minio
+#    ports:
+#      - 9000:9000
+#      - 9001:9001
+#    restart: always
+#    volumes:
+#      - minio-data:/data
+#
+#  postgres:
+#    container_name: evland-postgres
+#    env_file: .env.postgres
+#    image: postgres:17-alpine
+#    ports:
+#      - 5432:5432
+#    restart: always
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
+#
+#  prometheus:
+#    container_name: evland-prometheus
+#    command:
+#      - '--config.file=/prometheus/prometheus.yml'
+#      - '--storage.tsdb.path=/prometheus'
+#      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+#      - '--web.console.templates=/usr/share/prometheus/consoles'
+#    image: prom/prometheus:latest
+#    ports:
+#      - 9090:9090
+#    restart: always
+#    volumes:
+#      - prometheus-data:/prometheus
+#      - ./prometheus/prometheus.yml:/prometheus/prometheus.yml
+#
+#  redis:
+#    container_name: evland-redis
+#    image: redis:8-alpine
+#    command: redis-server /usr/local/etc/redis/redis.conf
+#    ports:
+#      - 6379:6379
+#    restart: always
+#    volumes:
+#      - redis-data:/data
+#      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+#
+#  redis-insight:
+#    container_name: evland-redis-insight
+#    env_file: .env.redisinsight
+#    depends_on:
+#      - redis
+#    image: redis/redisinsight:latest
+#    ports:
+#      - 5540:5540
+#    restart: always
+#    volumes:
+#      - redis-insight-data:/data
+
+volumes:
+  api-node-modules-data:
+#  minio-data:
+#  nginx-cache-data:
+#  postgres-data:
+#  prometheus-data:
+#  redis-data:
+#  redis-insight-data:
+  ui-node-modules-data:
