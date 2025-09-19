@@ -1,14 +1,14 @@
 name: tgma-hackathon
 services:
   ui:
-    container_name: tgma-hackathon-ui
-    depends_on:
-      - api
     build:
       context: ./ui
       dockerfile: docker/Dockerfile
       target: build
     command: yarn dev
+    container_name: tgma-hackathon-ui
+    depends_on:
+      - api
     ports:
       - 5173:5173
     restart: always
@@ -17,15 +17,15 @@ services:
       - ui-node-modules-data:/app/node_modules
 
   api:
+    build:
+      context: ./api
+      dockerfile: docker/Dockerfile
+      target: build
     container_name: tgma-hackathon-api
     depends_on:
       - postgres
       - redis
     env_file: .env.api
-    build:
-      context: ./api
-      dockerfile: docker/Dockerfile
-      target: build
     command: yarn start:dev
     ports:
       - 3000:3000
@@ -33,7 +33,6 @@ services:
     volumes:
       - ./api:/app
       - api-node-modules-data:/app/node_modules
-
   postgres:
     container_name: tgma-hackathon-postgres
     env_file: .env.postgres
